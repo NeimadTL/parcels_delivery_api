@@ -1,9 +1,10 @@
 class Carrier < ApplicationRecord
-  
+
   validates :name, presence: true
   validates :age, presence: true, numericality: { greater_than_or_equal_to: 18 }
   validate :has_at_least_one_drivers_license, on: [:create, :update]
 
+  belongs_to :transporter_company
 
   def has_at_least_one_drivers_license
     unless self.has_driver_license_a || self.has_driver_license_b || self.has_driver_license_c

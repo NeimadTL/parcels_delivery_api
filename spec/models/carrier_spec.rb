@@ -5,11 +5,15 @@ RSpec.describe Carrier, type: :model do
   it { should validate_presence_of :name }
   it { should validate_numericality_of :age }
 
+  it { should belong_to(:transporter_company) }
+
   describe "when carrier has no driver's license" do
     before do
+      dhl = TransporterCompany.create(name: 'DHL', siret: '12345678912345')
       @john = Carrier.create(
         name: "John", age: 23, has_driver_license_a: false,
-        has_driver_license_b: false,has_driver_license_c: false)
+        has_driver_license_b: false, has_driver_license_c: false,
+        transporter_company_id: dhl.id)
     end
 
     it "should not be valid" do
@@ -20,9 +24,11 @@ RSpec.describe Carrier, type: :model do
 
   describe "when carrier has at least one driver's license" do
     before do
+      dhl = TransporterCompany.create(name: 'DHL', siret: '12345678912345')
       @john = Carrier.create(
         name: "John", age: 23, has_driver_license_a: true,
-        has_driver_license_b: false,has_driver_license_c: false)
+        has_driver_license_b: false,has_driver_license_c: false,
+        transporter_company_id: dhl.id)
     end
 
     it "should be valid" do

@@ -10,7 +10,7 @@
 TransporterCompany.delete_all
 PostCode.delete_all
 TransportersPostcodesRelationship.delete_all
-
+Carrier.delete_all
 
 paris = PostCode.create!(code: '75000')
 lille = PostCode.create!(code: '59000')
@@ -41,3 +41,28 @@ TransportersPostcodesRelationship.create!(
 TransportersPostcodesRelationship.create!(
   transporter_company_id: fedex_transporter.id,
   post_code_id: montpellier.id)
+
+
+Carrier.create(name: "John", age: 23, has_driver_license_a: false,
+  has_driver_license_b: false, has_driver_license_c: true,
+  transporter_company_id: dhl_transporter.id)
+
+Carrier.create(name: "Isidro", age: 36, has_driver_license_a: false,
+  has_driver_license_b: true, has_driver_license_c: false,
+  transporter_company_id: dhl_transporter.id)
+
+Carrier.create(name: "Martin", age: 42, has_driver_license_a: false,
+  has_driver_license_b: true, has_driver_license_c: false,
+  transporter_company_id: dhl_transporter.id)
+
+Carrier.create(name: "Ryan", age: 18, has_driver_license_a: false,
+  has_driver_license_b: true, has_driver_license_c: false,
+  transporter_company_id: ups_transporter.id)
+
+Carrier.create(name: "Minerva", age: 27, has_driver_license_a: false,
+  has_driver_license_b: true, has_driver_license_c: false,
+  transporter_company_id: ups_transporter.id)
+
+Carrier.create(name: "Pierre", age: 40, has_driver_license_a: false,
+  has_driver_license_b: true, has_driver_license_c: false,
+  transporter_company_id: fedex_transporter.id)

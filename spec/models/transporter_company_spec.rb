@@ -9,4 +9,6 @@ RSpec.describe TransporterCompany, type: :model do
   it { should have_many(:transporters_postcodes_relationships) }
   it { should have_many(:post_codes).through(:transporters_postcodes_relationships) }
 
+  it { should have_many(:carriers) }
+
 end

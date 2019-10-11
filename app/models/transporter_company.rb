@@ -5,4 +5,6 @@ class TransporterCompany < ApplicationRecord
   has_many :transporters_postcodes_relationships
   has_many :post_codes, through: :transporters_postcodes_relationships
 
+  has_many :carriers
+
 end

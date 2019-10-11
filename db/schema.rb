@@ -10,13 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_11_115556) do
+ActiveRecord::Schema.define(version: 2019_10_11_124441) do
+
+  create_table "post_codes", force: :cascade do |t|
+    t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "transporter_companies", force: :cascade do |t|
     t.string "name"
     t.string "siret"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "transporters_postcodes_relationships", force: :cascade do |t|
+    t.integer "transporter_company_id"
+    t.integer "post_code_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["transporter_company_id", "post_code_id"], name: "transporters_postcodes_index", unique: true
   end
 
 end

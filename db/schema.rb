@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_11_124441) do
+ActiveRecord::Schema.define(version: 2019_10_11_152019) do
+
+  create_table "carriers", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.boolean "has_driver_license_a"
+    t.boolean "has_driver_license_b"
+    t.boolean "has_driver_license_c"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "post_codes", force: :cascade do |t|
     t.string "code"

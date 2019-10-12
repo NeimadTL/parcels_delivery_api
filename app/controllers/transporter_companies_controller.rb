@@ -15,9 +15,15 @@ class TransporterCompaniesController < ApplicationController
 
   # POST /transporter_companies
   def create
-    @transporter_company = TransporterCompany.new(transporter_company_params)
-    params[:transporter_company][:post_codes].each do |code|
+    @transporter_company = TransporterCompany.new(name: transporter_company_params[:name], siret: transporter_company_params[:siret])
+    transporter_company_params[:post_codes].each do |code|
       @transporter_company.post_codes.build(code: code)
+    end
+    transporter_company_params[:carriers].each do |carrier|
+      @transporter_company.carriers.build(name: carrier["name"], age: carrier["age"],
+      has_driver_license_a: carrier["has_driver_license_a"],
+      has_driver_license_b: carrier["has_driver_license_b"],
+      has_driver_license_c: carrier["has_driver_license_c"])
     end
 
     if @transporter_company.save
@@ -49,6 +55,8 @@ class TransporterCompaniesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def transporter_company_params
-      params.require(:transporter_company).permit(:name, :siret)
+      params.require(:transporter_company).permit(:name, :siret,
+        :post_codes => [], :carriers => [:name, :age, :has_driver_license_a,
+          :has_driver_license_b, :has_driver_license_c])
     end
 end

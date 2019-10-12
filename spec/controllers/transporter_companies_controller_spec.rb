@@ -46,4 +46,21 @@ RSpec.describe TransporterCompaniesController, type: :controller do
     end
   end
 
+  describe "when POST #create " do
+    it "tbc" do
+      post :create, xhr: true, params: {
+        transporter_company: { name: "new transporter", siret: "35786763874426",
+          post_codes: ['54000', '33000', '45000'] } }
+      expect(response).to have_http_status(:success)
+      created_tranporter = TransporterCompany.last
+      expect(created_tranporter.name).to eq "new transporter"
+      expect(created_tranporter.siret).to eq "35786763874426"
+      expect(created_tranporter.post_codes.count).to eq 3
+      expect(created_tranporter.post_codes[0].code).to eq '54000'
+      expect(created_tranporter.post_codes[1].code).to eq '33000'
+      expect(created_tranporter.post_codes[2].code).to eq '45000'
+
+    end
+  end
+
 end

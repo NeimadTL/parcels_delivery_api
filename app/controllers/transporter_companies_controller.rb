@@ -16,6 +16,9 @@ class TransporterCompaniesController < ApplicationController
   # POST /transporter_companies
   def create
     @transporter_company = TransporterCompany.new(transporter_company_params)
+    params[:transporter_company][:post_codes].each do |code|
+      @transporter_company.post_codes.build(code: code)
+    end
 
     if @transporter_company.save
       render json: @transporter_company, status: :created, location: @transporter_company

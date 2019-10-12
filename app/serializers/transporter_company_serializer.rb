@@ -7,6 +7,5 @@ class TransporterCompanySerializer < ActiveModel::Serializer
 
   def carriers
     CollectionSerializer.new(object.carriers, each_serializer: CarrierSerializer)
-    # ActiveModel::Serializer::CollectionSerializer
   end
 end

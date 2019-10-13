@@ -86,6 +86,17 @@ RSpec.describe TransporterCompaniesController, type: :controller do
       expect(created_tranporter.carriers[1].has_driver_license_b).to eq false
       expect(created_tranporter.carriers[1].has_driver_license_c).to eq true
     end
+
+
+    it "should not save transporter when post codes and carriers params are missing" do
+      expect {
+        post :create, xhr: true, params: { transporter_company:
+          { name: "NoPostCodesNoCarriers", siret: "35786763874426" } }
+      }.to_not change(TransporterCompany, :count)
+      expect(response).to have_http_status(:bad_request)
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['message']).to eq 'parameters missing : post codes or carriers'
+    end
   end
 
 end

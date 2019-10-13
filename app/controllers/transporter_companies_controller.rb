@@ -1,6 +1,8 @@
 class TransporterCompaniesController < ApplicationController
   extend TransporterCompanyBuilder
   before_action :set_transporter_company, only: [:show, :update, :destroy]
+  before_action :check_required_params, only: [:create]
+
 
   # GET /transporter_companies
   def index
@@ -50,6 +52,12 @@ class TransporterCompaniesController < ApplicationController
       params.require(:transporter_company).permit(:name, :siret,
         :post_codes => [], :carriers => [:name, :age, :has_driver_license_a,
           :has_driver_license_b, :has_driver_license_c])
+    end
+
+    def check_required_params
+      if transporter_company_params[:post_codes].nil? || transporter_company_params[:carriers].nil?
+        render json: { message: "parameters missing : post codes or carriers" }, status: :bad_request
+      end
     end
 
 end

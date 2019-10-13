@@ -1,7 +1,7 @@
 class TransporterCompaniesController < ApplicationController
   extend TransporterCompanyBuilder
   before_action :set_transporter_company, only: [:show, :update, :destroy]
-  before_action :check_required_params, only: [:create]
+  # before_action :check_required_params, only: [:create]
 
 
   # GET /transporter_companies

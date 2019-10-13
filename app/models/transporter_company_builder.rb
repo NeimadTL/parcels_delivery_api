@@ -5,8 +5,8 @@ module TransporterCompanyBuilder
     transporter = TransporterCompany.new(
                             name: params[:name],
                             siret: params[:siret])
-    build_post_codes(params,transporter)
-    build_carriers(params,transporter)
+    build_post_codes(params,transporter) unless params[:post_codes].nil?
+    build_carriers(params,transporter) unless params[:carriers].nil?
     transporter
   end
 

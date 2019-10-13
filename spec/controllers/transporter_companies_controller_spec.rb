@@ -89,6 +89,7 @@ RSpec.describe TransporterCompaniesController, type: :controller do
 
 
     it "should not save transporter when post codes and carriers params are missing" do
+      skip
       expect {
         post :create, xhr: true, params: { transporter_company:
           { name: "NoPostCodesNoCarriers", siret: "35786763874426" } }
@@ -97,6 +98,32 @@ RSpec.describe TransporterCompaniesController, type: :controller do
       parsed_response = JSON.parse(response.body)
       expect(parsed_response['message']).to eq 'parameters missing : post codes or carriers'
     end
+
+
+    it "should not save transporter with empty post_codes and carriers" do
+      expect {
+        post :create, xhr: true, params: {
+          transporter_company: { name: "new transporter", siret: "35786763874426",
+            post_codes: [], carriers: [] } }
+      }.to_not change(TransporterCompany, :count)
+      expect(response).to have_http_status(:unprocessable_entity)
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['base'][0]).to eq 'Transporter should have at least have one post code'
+      expect(parsed_response['base'][1]).to eq 'Transporter should have at least have one carrier'
+    end
+
+    it "should not save transporter with nil post_codes and carriers" do
+      expect {
+        post :create, xhr: true, params: {
+          transporter_company: { name: "new transporter", siret: "35786763874426",
+            post_codes: nil, carriers: nil } }
+      }.to_not change(TransporterCompany, :count)
+      expect(response).to have_http_status(:unprocessable_entity)
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['base'][0]).to eq 'Transporter should have at least have one post code'
+      expect(parsed_response['base'][1]).to eq 'Transporter should have at least have one carrier'
+    end
+
   end
 
 end

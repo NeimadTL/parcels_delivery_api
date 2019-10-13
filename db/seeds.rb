@@ -16,9 +16,12 @@ paris = PostCode.create!(code: '75000')
 lille = PostCode.create!(code: '59000')
 montpellier = PostCode.create!(code: '34000')
 
-dhl_transporter = TransporterCompany.create!(name: 'DHL', siret: '12345678912345')
-ups_transporter = TransporterCompany.create!(name: 'UPS', siret: '12345678954321')
-fedex_transporter = TransporterCompany.create!(name: 'FEDEX', siret: '98765432154321')
+TransporterCompany.new(name: 'DHL', siret: '12345678912345').save!(validate: false)
+dhl_transporter = TransporterCompany.find_by(name: 'DHL')
+TransporterCompany.new(name: 'UPS', siret: '12345678954321').save!(validate: false)
+ups_transporter = TransporterCompany.find_by(name: 'UPS')
+TransporterCompany.new(name: 'FEDEX', siret: '98765432154321').save!(validate: false)
+fedex_transporter = TransporterCompany.find_by(name: 'FEDEX')
 
 TransportersPostcodesRelationship.create!(
   transporter_company_id: dhl_transporter.id,

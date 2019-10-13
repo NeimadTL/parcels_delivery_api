@@ -9,7 +9,7 @@ RSpec.describe Carrier, type: :model do
 
   describe "when carrier has no driver's license" do
     before do
-      dhl = TransporterCompany.create(name: 'DHL', siret: '12345678912345')
+      dhl = TransporterCompany.find_by(name: 'DHL')
       @john = Carrier.create(
         name: "John", age: 23, has_driver_license_a: false,
         has_driver_license_b: false, has_driver_license_c: false,
@@ -17,14 +17,14 @@ RSpec.describe Carrier, type: :model do
     end
 
     it "should not be valid" do
-      @john.should_not be_valid
-      @john.errors[:base].should include("You should at least have one driver's license")
+      expect(@john).to_not be_valid
+      expect(@john.errors[:base]).to include("You should at least have one driver's license")
     end
   end
 
   describe "when carrier has at least one driver's license" do
     before do
-      dhl = TransporterCompany.create(name: 'DHL', siret: '12345678912345')
+      dhl = TransporterCompany.find_by(name: 'DHL')
       @john = Carrier.create(
         name: "John", age: 23, has_driver_license_a: true,
         has_driver_license_b: false,has_driver_license_c: false,
@@ -32,8 +32,8 @@ RSpec.describe Carrier, type: :model do
     end
 
     it "should be valid" do
-      @john.should be_valid
-      @john.errors[:base].should be_empty
+      expect(@john).to be_valid
+      expect(@john.errors[:base]).to be_empty
     end
   end
 

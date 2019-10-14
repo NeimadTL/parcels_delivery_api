@@ -21,7 +21,7 @@ class TransporterCompaniesController < ApplicationController
     @transporter_company = TransporterCompaniesController::build_transporter(transporter_company_params)
 
     if @transporter_company.save
-      render json: @transporter_company, status: :created, location: @transporter_company
+      render json: @transporter_company, status: :created, location: @transporters_url
     else
       render json: @transporter_company.errors, status: :unprocessable_entity
     end

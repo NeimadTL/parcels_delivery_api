@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_11_170516) do
+ActiveRecord::Schema.define(version: 2019_10_15_194702) do
 
   create_table "carriers", force: :cascade do |t|
     t.string "name"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 2019_10_11_170516) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "transporter_company_id"
+  end
+
+  create_table "geolocations", force: :cascade do |t|
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.decimal "altitude"
+    t.integer "carrier_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "post_codes", force: :cascade do |t|

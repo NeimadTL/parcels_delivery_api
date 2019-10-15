@@ -5,6 +5,7 @@ class Carrier < ApplicationRecord
   validate :has_at_least_one_drivers_license, on: [:create, :update]
 
   belongs_to :transporter_company
+  has_one :geolocation
 
   def has_at_least_one_drivers_license
     unless self.has_driver_license_a || self.has_driver_license_b || self.has_driver_license_c

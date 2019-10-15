@@ -6,6 +6,7 @@ RSpec.describe Carrier, type: :model do
   it { should validate_numericality_of :age }
 
   it { should belong_to(:transporter_company) }
+  it { should have_one(:geolocation) }
 
   describe "when carrier has no driver's license" do
     before do

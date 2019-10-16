@@ -48,9 +48,34 @@ RSpec.describe CarriersController, type: :controller do
       expect(response).to have_http_status(:not_found)
       parsed_response = JSON.parse(response.body)
       expect(parsed_response['message']).to eq("Record with id='#{not_found_id}' not found")
+    end
+  end
 
+  describe "PUT #update" do
+    it "returns http success when all parameters are passed" do
+      john = Carrier.find_by(name: 'John')
+      expect {
+        put :update, xhr: true, params: { id: john.id,
+          geolocation: { latitude: 2.39, longitude: 3893.383, altitude: 34.384 } }
+      }.to change(Geolocation, :count)
+      expect(response).to have_http_status(:success)
+      expect(john.geolocation.latitude).to eq 2.39
+      expect(john.geolocation.longitude).to eq 3893.383
+      expect(john.geolocation.altitude).to eq 34.384
     end
 
+    it "returns http unprocessable entity when parameters are missing" do
+      john = Carrier.find_by(name: 'John')
+      expect {
+        put :update, xhr: true, params: { id: john.id,
+          geolocation: { latitude: 2.39, longitude: 3893.383, altitude: nil } }
+      }.to_not change(Geolocation, :count)
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(john.geolocation).to eq nil
+      parsed_response = JSON.parse(response.body)
+      puts "parsed_response -> #{parsed_response}"
+      expect(parsed_response['altitude'][0]).to eq("can't be blank")
+    end
   end
 
 end

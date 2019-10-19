@@ -73,7 +73,6 @@ RSpec.describe CarriersController, type: :controller do
       expect(response).to have_http_status(:unprocessable_entity)
       expect(john.geolocation).to eq nil
       parsed_response = JSON.parse(response.body)
-      puts "parsed_response -> #{parsed_response}"
       expect(parsed_response['altitude'][0]).to eq("can't be blank")
     end
   end

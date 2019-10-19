@@ -15,6 +15,7 @@ Carrier.delete_all
 paris = PostCode.create!(code: '75000')
 lille = PostCode.create!(code: '59000')
 montpellier = PostCode.create!(code: '34000')
+nancy = PostCode.create!(code: '54000')
 
 TransporterCompany.new(name: 'DHL', siret: '12345678912345').save!(validate: false)
 dhl_transporter = TransporterCompany.find_by(name: 'DHL')

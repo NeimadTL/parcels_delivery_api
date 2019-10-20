@@ -2,10 +2,21 @@ class StatsController < ApplicationController
 
   def transporters_by_postcodes
     @postcodes = PostCode.where_there_are_transporters
-    @postcodes = @postcodes.to_h { |postcode| [postcode.code, postcode.transporter_companies] }
-    # @postcodes = @postcodes.transform_keys { |k| "postal_code: #{k}" }
-    # @postcodes = @postcodes.transform_values { |v| "transporters: #{v}" }
-    render json: @postcodes
+    render json: transform_postcodes(@postcodes)
   end
+
+  private
+
+    def transform_postcodes(postcodes)
+      array = []
+      postcodes.to_a.each do |postcode|
+        hash = {
+          postal_code: postcode.code,
+          transporters: ActiveModelSerializers::SerializableResource.new(postcode.transporter_companies, {})
+        }
+        array.push(hash)
+      end
+      array
+    end
 
 end

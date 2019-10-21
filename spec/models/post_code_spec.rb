@@ -7,12 +7,12 @@ RSpec.describe PostCode, type: :model do
   it { should have_many(:transporters_postcodes_relationships) }
   it { should have_many(:transporter_companies).through(:transporters_postcodes_relationships) }
 
-  describe "retrieve post codes where there are transporters" do
+  describe "scope #where_there_are_transporters" do
     before do
       @post_codes = PostCode.where_there_are_transporters
     end
 
-    it "should not be valid" do
+    it "should retrieve post codes where there are transporters" do
       expect(@post_codes).to_not be_empty
       expect(@post_codes.count).to eql 3
       expect(@post_codes[0].code).to eql "75000"

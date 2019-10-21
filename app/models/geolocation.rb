@@ -6,4 +6,9 @@ class Geolocation < ApplicationRecord
 
   belongs_to :carrier
 
+  scope :where_carriers_passed_by, -> (params) {
+    joins(:carrier).where('latitude = ? and longitude = ?',
+      params[:latitude], params[:longitude])
+  }
+
 end

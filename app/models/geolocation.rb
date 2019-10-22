@@ -11,4 +11,11 @@ class Geolocation < ApplicationRecord
       params[:latitude], params[:longitude])
   }
 
+  def to_h
+    hash = {
+      geolocation: "@#{self.latitude}, #{self.longitude}",
+      carrier: ActiveModelSerializers::SerializableResource.new(self.carrier, {})
+    }
+  end
+
 end

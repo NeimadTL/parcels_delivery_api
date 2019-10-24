@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   post '/transporters', to: 'transporter_companies#create'
   get  '/transporters/:id/carriers', to: 'carriers#index'
   get  '/transporters/by_postal_codes', to: 'stats#transporters_by_postcodes'
+  get  '/transporters/with_carriers_passed_by/:latitude/:longitude/',
+        to: 'stats#transporter_with_carriers_passed_by',
+        constraints: { latitude: /\d+\.\d+/, longitude: /\d+\.\d+/ }
   put  '/carrier/:id/trackings', to: 'carriers#update'
   get  '/carriers/passed_by/:latitude/:longitude/', to: 'stats#carriers_passed_by',
         constraints: { latitude: /\d+\.\d+/, longitude: /\d+\.\d+/ }

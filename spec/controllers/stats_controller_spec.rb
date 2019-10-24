@@ -100,4 +100,39 @@ RSpec.describe StatsController, type: :controller do
     end
   end
 
+  describe "GET #transporter_with_carriers_passed_by" do
+    it "returns http success" do
+      get :transporter_with_carriers_passed_by, xhr: true, params: { latitude: 9393.393, longitude: 32.63 }
+      expect(response).to have_http_status(:success)
+    end
+
+    it "returns all transporters and their carriers who have passed by a geolocation" do
+      get :transporter_with_carriers_passed_by, xhr: true, params: { latitude: 9393.393, longitude: 32.63 }
+      parsed_response = JSON.parse(response.body)
+
+      # number of hashes {transporter: , carriers: [] }
+      expect(parsed_response.length).to eq(1)
+      expect(parsed_response[0]['transporter']['name']).to eq("DHL")
+
+      # number of carriers
+      expect(parsed_response[0]['carriers'].length).to eq(2)
+
+      # First carrier is Isidro
+      expect(parsed_response[0]['carriers'][0]['name']).to eq("Isidro")
+
+      # Second carrier is Martin
+      expect(parsed_response[0]['carriers'][1]['name']).to eq("Martin")
+    end
+
+    it "returns no transporters when geolocation hasn't been passed by their carriers" do
+      get :transporter_with_carriers_passed_by, xhr: true, params: { latitude: 8264.3, longitude: 7.389 }
+      parsed_response = JSON.parse(response.body)
+
+      # number of hashes {geolocation: "", carrier: {} }
+      expect(parsed_response.length).to eq(0)
+
+    end
+  end
+
+
 end

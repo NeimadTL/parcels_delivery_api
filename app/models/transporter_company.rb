@@ -23,4 +23,11 @@ class TransporterCompany < ApplicationRecord
     end
   end
 
+  def to_h(options=nil)
+    hash = {
+      transporter: self,
+      carriers: options[:carriers]
+    }
+  end
+
 end

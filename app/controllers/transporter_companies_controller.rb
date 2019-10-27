@@ -8,7 +8,8 @@ class TransporterCompaniesController < ApplicationController
   def index
     @transporter_companies = TransporterCompany.all
 
-    render json: @transporter_companies
+    # render json: @transporter_companies
+    render component: 'HelloWorld', props: { greting: "Yeah" }
   end
 
   # GET /transporter_companies/1

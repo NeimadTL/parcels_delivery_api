@@ -9,7 +9,7 @@ RSpec.describe Geolocation, type: :model do
 
   describe "scope #where_carriers_passed_by " do
     before do
-      @geolocations = Geolocation.where_carriers_passed_by( { latitude: 9393.393, longitude: 32.63 } )
+      @geolocations = Geolocation.where_carriers_passed_by(9393.393, 32.63)
     end
 
     it "should retreive geolocations where carriers passed by" do

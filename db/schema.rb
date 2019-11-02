@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_02_091230) do
+ActiveRecord::Schema.define(version: 2019_11_02_092545) do
 
   create_table "carriers", force: :cascade do |t|
     t.string "name"
@@ -39,10 +39,11 @@ ActiveRecord::Schema.define(version: 2019_11_02_091230) do
   end
 
   create_table "transporter_companies", force: :cascade do |t|
-    t.string "name"
-    t.string "siret"
+    t.string "name", null: false
+    t.string "siret", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["siret"], name: "index_transporter_companies_on_siret", unique: true
   end
 
   create_table "transporters_postcodes_relationships", force: :cascade do |t|

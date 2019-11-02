@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_02_092545) do
+ActiveRecord::Schema.define(version: 2019_11_02_143108) do
 
   create_table "carriers", force: :cascade do |t|
-    t.string "name"
-    t.integer "age"
+    t.string "name", null: false
+    t.string "age", null: false
     t.boolean "has_driver_license_a", default: false
     t.boolean "has_driver_license_b", default: false
     t.boolean "has_driver_license_c", default: false
